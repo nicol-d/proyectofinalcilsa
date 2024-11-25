@@ -1,0 +1,151 @@
+/* Global Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Variables de color */
+:root {
+    --color-1: #86eee4;
+    --color-2: #5278a7;
+    --color-3: #ecfffd;
+    --color-4: #515a5a;
+    --color-5: #9dc5f5;
+    --color-6: #2e4053;
+}
+
+/* Estilo general del body */
+body {
+    background: linear-gradient(to bottom, var(--color-1), var(--color-5));
+    height: 100vh;
+    font-family: "Montserrat", "sans-serif";
+}
+
+/* Contenedor principal */
+.container {
+    width: 400px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+/* Estilo de perfil */
+.perfil h1 {
+    color: var(--color-2);
+}
+
+.perfil span {
+    color: var(--color-6);
+    letter-spacing: 1px;
+}
+
+#fecha {
+    color: var(--color-3);
+    padding: 50px 0;
+}
+
+/* Sección para agregar tareas */
+.agregar-tarea {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.agregar-tarea input {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--color-3);
+    padding: 0 10px;
+    font-size: 1.1rem;
+    color: var(--color-5);
+}
+
+.agregar-tarea input::placeholder {
+    color: var(--color-5);
+}
+
+.agregar-tarea i {
+    font-size: 40px;
+    color: var(--color-2);
+    transition: transform 0.2s ease;
+}
+
+.agregar-tarea i:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Sección de tareas */
+.seccion-tarea h3 {
+    color: var(--color-3);
+    margin-bottom: 20px;
+}
+
+.seccion-tarea li {
+    display: flex;
+    background: linear-gradient(to bottom, var(--color-1), var(--color-5));
+    border-radius: 15px;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0;
+    color: var(--color-3);
+    transition: all 0.3s ease;
+}
+
+.seccion-tarea li.removed {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.seccion-tarea i {
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+
+.seccion-tarea i:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.seccion-tarea > ul p {
+    font-size: 1.2rem;
+}
+
+/* Estado de tarea completada */
+.line-through {
+    text-decoration: line-through;
+}
+
+.realizado {
+    color: var(--color-2);
+}
+
+/* Responsividad para dispositivos móviles */
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .agregar-tarea input {
+        font-size: 0.9rem;
+        height: 35px;
+    }
+
+    .agregar-tarea i {
+        font-size: 30px;
+    }
+
+    .seccion-tarea li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .seccion-tarea li i {
+        margin: 5px 0;
+    }
+}
