@@ -7,7 +7,10 @@ const unchecked = "fa-circle";
 const realizadoClass = "realizado";
 let id = 0;
 let LIST = [];
+const API_URL = 'http://localhost:3000/tasks';
 
+
+module.exports = LIST;
 /* Creación de la fecha */
 const FECHA = new Date();
 fecha.innerHTML = FECHA.toLocaleDateString('es-ES', { 
@@ -48,21 +51,38 @@ function eliminarTarea(element) {
     localStorage.setItem("TODO", JSON.stringify(LIST));
 }
 
-/* Cargar tareas desde localStorage */
-function cargarTareas() {
-    const data = localStorage.getItem("TODO");
-    try {
-        LIST = JSON.parse(data) || [];
-        id = LIST.length;
-        LIST.forEach(item => {
-            agregarTarea(item.name, item.id, item.realizado, item.eliminado);
-        });
-    } catch (error) {
-        console.error("Error cargando las tareas: ", error);
-        LIST = [];
-        localStorage.setItem("TODO", JSON.stringify(LIST));
-    }
+
+// Cargar tareas desde el backend
+async function cargarTareas() {
+    const response = await fetch(API_URL);
+    LIST = await response.json();
+    id = LIST.length;
+    LIST.forEach(item => {
+        agregarTarea(item.name, item.id, item.realizado, item.eliminado);
+    });
 }
+
+// Agregar tarea al backend
+async function agregarTareaBackend(tarea) {
+    const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: tarea })
+    });
+    return await response.json();
+}
+
+// Modificar el evento de agregar tarea
+botonEnter.addEventListener("click", async () => {
+    const tarea = input.value.trim();
+    if (tarea) {
+        const newTask = await agregarTareaBackend(tarea);
+        agregarTarea(newTask.name, newTask.id, false, false);
+        input.value = "";
+    }
+});
 
 /* Evento para agregar tarea con el botón */
 botonEnter.addEventListener("click", () => {
